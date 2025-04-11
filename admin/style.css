@@ -1,0 +1,31 @@
+/* ANCHOR TAG */
+a{
+    text-decoration: none;
+    font-size: 18px;
+}
+
+/* BUTTON */
+button {
+    background-color: #4CAF50;
+    color: white;           
+    padding: 5px 20px;        
+    border: none;       
+    border-radius: 5px;  
+    cursor: pointer;    
+    font-size: 16px;     
+    transition: background-color 0.3s; 
+  }
+  
+  button:hover {
+    background-color: #45a049; 
+  }
+  
+  /* LABEL */
+  label{
+    font-size: 18px;
+    font-weight: 500;
+  }
+  body{
+    font-family: 'Tahoma', sans-serif;
+    font-size: larger;
+}

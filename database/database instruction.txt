@@ -1,0 +1,1 @@
+create database club_man first then import club_man file in the phpMyAdmin

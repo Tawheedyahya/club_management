@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(to right, #e3f2fd, #bbdefb);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .login-container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            width: 350px;
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+            text-align: left;
+        }
+
+        .form-control {
+            border-radius: 5px;
+            height: 40px;
+        }
+
+        .error {
+            border: 2px solid red;
+        }
+
+        .btn-login {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: #007bff;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .btn-login:hover {
+            background-color: #0056b3;
+        }
+
+        .forgot-pass {
+            display: block;
+            margin-top: 10px;
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        .forgot-pass:hover {
+            text-decoration: underline;
+        }
+
+        .password-container {
+            position: relative;
+        }
+
+        .show-hide {
+            position: absolute;
+            right: 20px;
+            top: 80%;
+
+            transform: translateY(-50%);
+            cursor: pointer;
+            font-size: 14px;
+            color: #007bff;
+
+        }
+    </style>
+</head>
+<body>
+
+    <div class="login-container">
+        <h2 class="mb-4">Login</h2>
+
+        <form id="login_form" method="POST">
+            <!-- Username -->
+            <div class="form-group">
+                <label for="a_name">Username</label>
+                <input type="text" name="a_name" id="a_name" class="form-control">
+            </div>
+
+            <!-- Password -->
+            <div class="form-group password-container">
+                <label for="a_pass">Password</label>
+                <input type="password" name="a_pass" id="a_pass" class="form-control">
+                <span class="show-hide" onclick="togglePassword()">Show</span>
+            </div>
+
+            <button type="submit" class="btn-login">Enter</button>
+            <a href="../forgotpass/forgot.html" class="forgot-pass">Forgot Password?</a>
+        </form>
+    </div>
+
+    <script>
+        $(document).ready(function(){
+            $("#login_form").submit(function(event){
+                event.preventDefault();
+                
+                let a_email = $("#a_name").val().trim();
+                let a_pass = $("#a_pass").val().trim();
+
+                $.ajax({
+                    url: "1_loginvalidation.php",
+                    type: "POST",
+                    data: { a_email: a_email, a_pass: a_pass },
+                    success: function(response) {
+                        if (response === 'true') {
+                            console.log("Login successful");
+                            $("#a_name, #a_pass").removeClass("error");
+                            window.location.assign("../work/admin.php");
+                        } else {
+                            $("#a_name, #a_pass").val('').addClass("error");
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.log(error);
+                    }
+                });
+            });
+        });
+
+        function togglePassword() {
+            let passInput = $("#a_pass");
+            let toggleText = $(".show-hide");
+
+            if (passInput.attr("type") === "password") {
+                passInput.attr("type", "text");
+                toggleText.text("Hide");
+            } else {
+                passInput.attr("type", "password");
+                toggleText.text("Show");
+            }
+        }
+    </script>
+
+</body>
+</html>

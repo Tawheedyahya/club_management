@@ -1,1 +1,3 @@
 create database club_man first then import club_man file in the phpMyAdmin
+
+It's completely suitable for single institutions. if you want to go admin change thr url admin/1_login.html 
